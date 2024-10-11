@@ -4,12 +4,21 @@
 
 console.log(globalThis === global); //true-- points to the same reference
 
-
-
-const { sum, name } = require("../otherfile");
+// Module exports
 
 let a = 10,
   b = 10;
 
+// common js modules
+
+const { sum } = require("./modules/commonjsmodule");
+let x = 20; //If we dont import the varaible even if we exports that we can reuse the same variable
 sum(a, b);
-console.log(name);
+
+//ES modules---- import and export
+
+import { sumInEsModule } from "./modules/esmodule.js";
+sumInEsModule(a, b);
+
+
+
