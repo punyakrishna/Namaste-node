@@ -11,14 +11,14 @@ let a = 10,
 
 // common js modules
 
-const { sum } = require("./modules/commonjsmodule");
+const { sum } = require("./modules/commonjsmoddule");
 let x = 20; //If we dont import the varaible even if we exports that we can reuse the same variable
 sum(a, b);
 
 //ES modules---- import and export
 
-import { sumInEsModule } from "./modules/esmodule.js";
-sumInEsModule(a, b);
+// import { sumInEsModule } from "./modules/esmodule.js";
+// sumInEsModule(a, b);
 
 
 
