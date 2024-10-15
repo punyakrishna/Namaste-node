@@ -10,12 +10,14 @@ let wrap = function (script) {
   // eslint-disable-line func-style
   return Module.wrapper[0] + script + Module.wrapper[1];
 };
-// Module.wrapper[0]; --- (function (exports, require, module, __filename, __dirname) { 
+// Module.wrapper[0]; --- (function (exports, require, module, __filename, __dirname) {
 // Module.wrapper[1] ----  })  /n means it will just move to next line
 const wrapper = [
   "(function (exports, require, module, __filename, __dirname) { ",
   "\n});",
 ];
+
+console.log(wrap, ":wrap");
 
 // 4)  Evaluation -- it will check for the module.exports
 // 5)  caching
