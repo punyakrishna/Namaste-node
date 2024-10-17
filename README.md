@@ -59,4 +59,82 @@ V8- Both interpreted and compiled language -- javascript --- JIT
                                                 |
                                             Execution
 
+Garbage collector
+Orinoco
+Oilpan
+Scavenger
+Mcompact
 
+Event loop
+Higher prority -- process.nextTick() and promise callbacks --- only once all the callbacks are completed then only it will move to next cycle that means if there are any next process.nextTick it will execute it then only it will go to promises
+but its not the case with second cycle
+
+2nd cycle
+
+1. timer --- setTimeout setInterval
+2. poll --- I/O callbacks, incoming connections,data,fs,crypto, http.get etc
+3. check --- setImmediate
+4. Close --- socket.on("close")
+
+before checking each step in the second cycle it will ceck the 1st hight priority task if there are any nextTick or promise call backs it will execute it and then it will mve to the next cycle
+
+Thread Pool - by default the size is 4  -- belongs to uv
+   Libuv uses different threads to handle different requests
+Ex:- fs - most of the functions from fs module uses thread pool
+     dns.lookup  - uses thred pool
+     crypto  -  ------||---
+
+
+Epoll,Kqueue, fds-socket descriptors
+
+
+Server
+  A server is a computer system or a software application that provides services, resources, or data to other devices, often referred to as clients, over a network. 
+
+
+Difference between our systems and aws virtual machine
+   Ip---since we are using a local network it won't provide us a proper IP where in aws's one there will be a dedicated IP for our sysytem
+   ram--- we have a limited ram and in aws i can increase
+   internet connectivity and power supply --- in local machines we can't guarante a high speed internet connectivity and power supply 24/7 where aws is managing all this
+
+
+1. Hardware Server
+    A hardware server refers to the physical machine or computer that is designed to run server software and manage networked resources or services.
+    Physical Components: It includes things like motherboards, CPUs, hard drives, and network interfaces.
+    High Performance: These servers typically have more processing power, memory, and storage capacity than regular computers because they serve many users and handle large-scale operation
+
+2. Software Server (sometimes referred to as "Server Software")
+    A software server refers to the program or application running on either physical or virtual hardware that provides specific services or functionality. This is where the actual server software processes client requests
+
+Protocol --- A protocol is a set of rules and standards that define how data is transmitted and received between different devices in a network.
+
+* While TCP is responsible for reliably transmitting data between two devices (e.g., between your computer and a web server), HTTP is responsible for defining how that data is structured, exchanged, and interpreted at a higher level, specifically for web communication.
+    # HTTP is an application layer protocol used to structure requests and responses for web communication. It defines how browsers request data (like web pages, images, etc.) from servers and how servers respond with that data.
+    # TCP ensures that the data (like the HTTP request and response) is transmitted reliably and in the correct order over the internet.
+    
+1. Internet Protocols:
+    HTTP (Hypertext Transfer Protocol): Used for transmitting web pages over the internet.
+    HTTPS (HTTP Secure): A secure version of HTTP, which encrypts the data sent between a browser and a web server using SSL/TLS.
+    FTP (File Transfer Protocol): Used to transfer files between computers over a network.
+    SMTP (Simple Mail Transfer Protocol): Used for sending emails between se    rvers.
+    IMAP/POP3: Used for retrieving emails from mail servers.
+
+2. Network Protocols:
+    IP (Internet Protocol): Responsible for addressing and routing data packets between devices on a network.
+    TCP (Transmission Control Protocol): Ensures reliable transmission of data by establishing a connection between devices and verifying data integrity.
+    UDP (User Datagram Protocol): A faster, connectionless protocol used for tasks where speed is more important than reliability (e.g., video streaming or online gaming).
+    DHCP (Dynamic Host Configuration Protocol): Automatically assigns IP addresses to devices on a network.
+
+3. Security Protocols:
+    SSL/TLS (Secure Sockets Layer/Transport Layer Security): Provides encryption for secure communication over networks (commonly used in HTTPS).
+    IPsec (Internet Protocol Security): Used to secure data at the network layer, often in VPNs (Virtual Private Networks).
+    SSH (Secure Shell): Provides secure remote access to a server or device.
+
+OSI Model---
+Physical Layer: Hardware, cables, and transmission of raw bits.
+Data Link Layer: Error detection and correction between directly connected nodes.
+Network Layer: Routing and forwarding of data packets (IP is here).
+Transport Layer: Ensures reliable data transmission (TCP/UDP).
+Session Layer: Manages sessions and connections.
+Presentation Layer: Data translation and encryption. (TLS/SSL)
+Application Layer: End-user services and network-based applications (HTTP, FTP)
