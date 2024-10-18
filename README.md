@@ -169,16 +169,20 @@ Common in web applications such as live chats, stock tickers, real-time notifica
 
 # _Database_
 
-    *Organized collection of data --- structured in a way that we can perform certain operations on it like adding data,  removing altering
+    *A Database is an organized collection of structured information or data, typically stored in a digital format. It allows for efficient storage, retrieval, and management of data.
 
-DBMS -- way to interact with the data, end user and database itself
+DBMS --
+*A Database Management System (DBMS) is software that provides users and applications with a way to interact with a database.
+*It allows for the creation, retrieval, update, and deletion (CRUD) of data within the database.
 
 Types of Database
 1.Relational Database -- PostgreSQL, MYSQL
-    EF codd -- he introduced 12 rules and said if the database follows this 12 rule then it will be Relational DB
+EF codd -- he introduced 12 rules and said if the database follows this 12 rule then it will be Relational DB
 2.NoSQL -- MongoDB
-    Document DB, Key value DB, Multi Model DB
+Document DB, Key value DB, Multi Model DB
 3.inmemory DB -- Redis -- it acts like a caching -- ex-if the particular api is frequently getting called
 etc.
 
-# *SQL-- Structured query language*
+# _SQL-- Structured query language_
+
+Hi Shwetha, I’ve been nominated for two projects: Pricing Microservices and Pfizer-PGS. Before proceeding, I need to understand the projects, my roles and responsibilities, and the codebase. I’ve already contacted Reema, and she directed me to reach out to you. Could you please help me with this? Also, who will be the point of contact for further clarifications?
