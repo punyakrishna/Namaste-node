@@ -1,0 +1,17 @@
+{
+  "name": "namaste-node",
+  "version": "1.0.0",
+  "description": "- is asynchronous non blocking I/O reading and writing files\r - Non blocking I/O coz it won't block the main thread that means main execution is going on in v8's call stack and other io operations are happening in libuv\r - Node.js is a cross-platform, open-source JavaScript runtime environment that can run on Windows, Linux, Unix, macOS, and more. Node.js runs on the V8 JavaScript engine, and executes JavaScript code outside a web browser.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.10.0"
+  },
+  "devDependencies": {}
+}

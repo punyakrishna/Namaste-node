@@ -183,6 +183,23 @@ Document DB, Key value DB, Multi Model DB
 3.inmemory DB -- Redis -- it acts like a caching -- ex-if the particular api is frequently getting called
 etc.
 
-# _SQL-- Structured query language_
+# _SQL-- Structured query language vs NoSQL_
 
-Hi Shwetha, I’ve been nominated for two projects: Pricing Microservices and Pfizer-PGS. Before proceeding, I need to understand the projects, my roles and responsibilities, and the codebase. I’ve already contacted Reema, and she directed me to reach out to you. Could you please help me with this? Also, who will be the point of contact for further clarifications?
+RDBMS: here we will have tables and tables has rows and columns
+Based on a structured schema that defines tables, rows, and columns.
+Data is organized in relational tables with relationships (primary and foreign keys).
+Uses SQL (Structured Query Language) for defining and manipulating data.
+
+NoSQL:
+Offers flexible data models such as key-value, document, column-family, or graph.
+Can store unstructured or semi-structured data without a predefined schema.
+Supports various query languages, but not necessarily SQL.
+MONGODB -- We will have collections, here we will have fields 
+  ^ No need for joins
+  ^ No need for data normalization
+
+_Difference_
+Table, rows, columns                       Collections and fields
+Fixed schema                               Flexible schema
+Structured data                            unstructured data
+Relationship-foriegn key join              Nested
