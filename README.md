@@ -145,12 +145,12 @@ Application Layer: End-user services and network-based applications (HTTP, FTP)
 IP Address:
 What it is: An IP (Internet Protocol) address is a unique numerical identifier assigned to each device on a network. It acts like an address for devices on the internet or a local network, allowing them to find and communicate with each other.
 
-    Purpose: It specifies which device on the network you're communicating with. An IP address can be thought of as the "home address" for a device on the internet, ensuring that data is delivered to the right device.
+Purpose: It specifies which device on the network you're communicating with. An IP address can be thought of as the "home address" for a device on the internet, ensuring that data is delivered to the right device.
 
 Port Number:
 What it is: A port number is a numerical value assigned to specific processes or services running on a device. It helps distinguish between different types of network traffic (or services) on the same device.
 
-    Purpose: It specifies which application or service on the device you're communicating with.
+Purpose: It specifies which application or service on the device you're communicating with.
 
 EX:- i have two different applications one is react and other one is node
 myapplication.com/ -- dafault i can give it as 3000
@@ -194,12 +194,12 @@ NoSQL:
 Offers flexible data models such as key-value, document, column-family, or graph.
 Can store unstructured or semi-structured data without a predefined schema.
 Supports various query languages, but not necessarily SQL.
-MONGODB -- We will have collections, here we will have fields 
-  ^ No need for joins
-  ^ No need for data normalization
+MONGODB -- We will have collections, here we will have fields
+^ No need for joins
+^ No need for data normalization
 
 _Difference_
-Table, rows, columns                       Collections and fields
-Fixed schema                               Flexible schema
-Structured data                            unstructured data
-Relationship-foriegn key join              Nested
+Table, rows, columns Collections and fields
+Fixed schema Flexible schema
+Structured data unstructured data
+Relationship-foriegn key join Nested
