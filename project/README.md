@@ -99,13 +99,14 @@ middleware functions are functions that have access to the request object (req),
 const express = require('express');
 const app = express();
 
-# *.use() and .all()*
+# _.use() and .all()_
+
 .use() Method
 Purpose: The .use() method is used to register middleware functions that will execute for all HTTP methods (GET, POST, PUT, DELETE, etc.) that match a specified path or, if no path is specified, all paths.
 Usage: .use() is typically used for application-level middleware (e.g., logging, parsing, authentication).
-                  // Middleware function that logs request details
-                  app.use('/',(req, res, next) => {
-                  
+// Middleware function that logs request details
+app.use('/',(req, res, next) => {
+
                   // We can check authorization here
                   const token="Punya"
                   if(token=="Punya"){
@@ -127,7 +128,6 @@ Usage: .use() is typically used for application-level middleware (e.g., logging,
                   console.log('Server is running on port 3000');
                   });
 
-
 .all() Method
 Purpose: The .all() method is used to define middleware functions that run for all HTTP methods on a specific route.
 Usage: .all() is usually used to apply middleware to a particular route or path, regardless of the HTTP method (GET, POST, etc.). It's commonly used when you want to handle certain logic for a specific route without repeating code for each method.
@@ -136,12 +136,38 @@ Usage: .all() is usually used to apply middleware to a particular route or path,
                     console.log('API request to any endpoint');
                     next();
                   });
-                  
+
                   app.get('/api/users', (req, res) => {
                     res.send('User List');
                   });
-                  
+
                   app.post('/api/users', (req, res) => {
                     res.send('Create User');
                   });
 
+Cookies
+while sending a jwt token server will wrap that inside a cookie and send that
+A cookie is a small piece of data that a server sends to a user's web browser. The browser stores it and sends it back to the server with each subsequent request to the same domain. Cookies are primarily used to remember information about the user, helping improve the browsing experience and enabling personalized interactions.
+Attributes of a Cookie:
+
+\\
+Name and Value: Key-value pairs that represent the data being stored.
+Domain: The domain that can access the cookie (e.g., example.com).
+Path: Specifies the URL path that must exist for the cookie to be sent.
+Expiration Date: Defines how long the cookie will remain valid.
+Secure and HttpOnly Flags:
+Secure: Ensures the cookie is only sent over HTTPS.
+HttpOnly: Prevents JavaScript from accessing the cookie, offering additional security against cross-site scripting (XSS) attacks.
+
+# _cookies vs jwt tokens_
+
+Expiring Cookies:
+Cookies are stored on the client’s browser and may contain session information.
+Expiration is controlled by the Expires or Max-Age attribute in the cookie.
+When a cookie expires, it is automatically removed from the client’s browser, which can end the session if the cookie was used to authenticate.
+_res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true })_
+
+Expiring JWT Tokens:
+A JWT (JSON Web Token) is a token typically stored in cookies, local storage, or session storage on the client side.
+JWTs have an exp (expiration) claim in their payload, specifying the exact time they will expire.
+Unlike cookies, expired JWTs are not automatically removed from storage. Instead, when a request is made with an expired JWT, the server rejects it upon verifying the exp claim.
