@@ -77,4 +77,11 @@ authRouter.post("/login", validateLoginData, async (req, res) => {
   }
 });
 
+authRouter.post("/logout", async (req, res) => {
+  res.cookie("token", null, { expires: new Date(Date.now()) }).send({
+    code: 200,
+    message: "Loggedout succesfully",
+  });
+});
+
 module.exports = authRouter;

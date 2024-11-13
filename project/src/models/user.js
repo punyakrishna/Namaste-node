@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     emailId: {
       type: String,
       required: true,
-      unique: true,
+      unique: true, //if the unique is set true it will automatically make it indexed or we can use index:true  --- if the index is true 
       lowerCase: true,
       trim: true,
       validate(value) {

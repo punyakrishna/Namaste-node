@@ -171,3 +171,103 @@ Expiring JWT Tokens:
 A JWT (JSON Web Token) is a token typically stored in cookies, local storage, or session storage on the client side.
 JWTs have an exp (expiration) claim in their payload, specifying the exact time they will expire.
 Unlike cookies, expired JWTs are not automatically removed from storage. Instead, when a request is made with an expired JWT, the server rejects it upon verifying the exp claim.
+
+<Sending token via cookies vs headers>
+1. Sending Tokens via Cookies
+Pros:
+
+Automatic Handling: Cookies are automatically sent by the browser with each request to the domain, making it convenient for session management.
+Storage Options: Cookies can have security flags like HttpOnly, Secure, and SameSite, which prevent JavaScript access and enforce secure handling (e.g., over HTTPS only).
+CSRF Protection: Cookies can be configured with SameSite to prevent cross-site request forgery (CSRF) attacks.
+Cons:
+
+CSRF Vulnerability: Cookies are susceptible to CSRF attacks if not properly secured.
+Complex Handling with Mobile Apps: Managing cookies can be more complex in mobile apps compared to web applications.
+Best Practices with Cookies:
+
+Use HttpOnly and Secure flags to protect the cookie from client-side JavaScript and ensure it is only sent over HTTPS.
+Use the SameSite flag (often SameSite=Strict or SameSite=Lax) to prevent cookies from being sent in cross-site requests, mitigating CSRF risks.
+
+2. Sending Tokens via Headers (e.g., Authorization Header)
+   Pros:
+
+CSRF-Resistant: Tokens in headers are not automatically sent by the browser, reducing the risk of CSRF attacks. They require explicit inclusion in each request (e.g., Authorization: Bearer <token>), making them more secure in this regard.
+Easy Mobile and API Compatibility: Using headers is straightforward for mobile apps, single-page applications, and server-to-server API communication.
+Cons:
+
+Manual Management: You have to manually attach the token to each request. This can be handled by most frameworks, but it’s something to consider.
+Storage Security: You’ll likely store tokens in localStorage or sessionStorage for easy access, but this storage is more vulnerable to cross-site scripting (XSS) attacks than HttpOnly cookies.
+
+# Indexing
+
+indexing is a way to improve the performance of search queries by making it faster to retrieve documents from a collection. Compound indexing is a specific type of indexing that involves creating indexes on multiple fields in a document.
+
+_Indexing in MongoDB_
+Definition: Indexes are special data structures that store a small portion of the collection’s data in an easy-to-traverse form. This allows MongoDB to quickly locate data without scanning every document in a collection.
+How it Works: When you create an index on a field, MongoDB sorts and organizes the data based on that field. This makes queries that involve that field significantly faster.
+Types of Indexes:
+Single Field Index: An index on a single field. For example, an index on { name: 1 } would allow fast searching on the name field.
+Unique Index: Ensures that all values of a field are unique.
+Text Index: Used to search for string content within a field or fields.
+Geospatial Index: Used to query geolocation data.
+
+_Compound Indexing in MongoDB_
+Definition: A compound index is an index that includes multiple fields. For example, an index on { name: 1, age: -1 } will sort documents first by name in ascending order and then by age in descending order for documents with the same name.
+Advantages:
+Multi-field Queries: Compound indexes allow for efficient querying on multiple fields, which can be faster than having multiple single-field indexes.
+Flexible Sorting: Compound indexes support sorting based on multiple fields.
+Prefix Rule: MongoDB can use the "prefix" fields of a compound index in queries. For example, if there’s an index on { name: 1, age: -1 }, MongoDB can use this index for queries that filter by name alone, or both name and age. But it cannot use this index to filter only by age.
+
+# Overindexing
+
+- Increased Storage Usage: Each index takes up additional space in your database. Indexes can consume significant disk space, especially if they cover fields with many unique values.
+- Slower Write Performance: Every time you insert, update, or delete a document, MongoDB needs to update all relevant indexes. If every field has an index, this can lead to much slower write operations because MongoDB must update each index for every write.
+- Memory Usage: MongoDB keeps frequently used indexes in memory (RAM) for faster access. With too many indexes, you might exceed your available memory, leading to increased disk usage and slower performance.
+- Index Overhead: Having unnecessary indexes can increase overhead and slow down your queries if MongoDB has to consider many index options. This can lead to "index bloat," where the number of indexes becomes excessive, and MongoDB struggles to decide the most efficient one to use for a query.
+
+# _Logical operators_
+
+     logical operators allow you to combine query conditions and perform complex queries.
+
+Syntax:--
+
+1. $and
+   Combines multiple conditions and returns documents that match all of the conditions.
+Syntax:db.collection.find({
+$and: [
+   { field1: { $condition1: value1 } },
+   { field2: { $condition2: value2 } }
+   ]
+   })
+
+EX: db.users.find({
+$and: [
+{ age: { $gte: 18 } },
+{ status: "active" }
+]
+}); //Finds documents where age is greater than or equal to 18 and status is "active".
+
+2. $or
+   Returns documents that match at least one of the specified conditions.
+
+db.users.find({
+$or: [
+{ age: { $gte: 18 } },
+{ status: "active" }
+]
+}); //Finds documents where age is greater than or equal to 18 or status is "active".
+
+3. $not
+   Inverts the effect of a query expression, returning documents that do not match the specified condition.
+   Ex: db.users.find({
+   age: { $not: { $gte: 18 } }
+   }); //Finds documents where age is not greater than or equal to 18.
+
+4. $nor
+   Returns documents that fail all of the specified conditions, i.e., none of the conditions are met.
+   db.users.find({
+   $nor: [
+   { age: { $gte: 18 } },
+   { status: "active" }
+   ]
+   }); //Finds documents where age is not greater than or equal to 18 and status is not "active".

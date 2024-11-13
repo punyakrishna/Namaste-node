@@ -33,4 +33,45 @@ const validateLoginData = (req, res, next) => {
   next();
 };
 
-module.exports = { validateSignUpData, validateLoginData };
+const validateProfileData = async (req, res, next) => {
+  try {
+    const updateData = req.body;
+
+    // Check if emailId is being attempted to update
+    if (updateData.emailId) {
+      return res
+        .status(400)
+        .send({ error: "Updating emailId is not allowed." });
+    }
+
+    if (updateData.password) {
+      return res
+        .status(400)
+        .send({ error: "Updating password is not allowed." });
+    }
+
+    const allowedFeilds = [
+      "firstName",
+      "lastName",
+      "age",
+      "gender",
+      "skills",
+      "about",
+      "profilePic",
+    ];
+
+    const sanitizedData = Object.keys(updateData)
+      .filter((key) => allowedFeilds.includes(key))
+      .reduce((acc, cur) => {
+        acc[cur] = updateData[cur];
+        return acc;
+      }, {});
+
+    req.userData = sanitizedData;
+    next();
+  } catch (err) {
+    res.status(500).send("Something went wrong");
+  }
+};
+
+module.exports = { validateSignUpData, validateLoginData, validateProfileData };
