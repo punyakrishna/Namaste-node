@@ -8,7 +8,7 @@ requestRouter.post(
   "/request/send/:status/:toUserId",
   userAuth,
   async (req, res) => {
-    const senderId = req.user.id; //attached the logged in user object in userAuth
+    const senderId = req.user._id; //attached the logged in user object in userAuth
     const recieverId = req.params.toUserId;
     const status = req.params.status;
 
@@ -76,4 +76,64 @@ requestRouter.post(
   }
 );
 
+requestRouter.post(
+  "/request/review/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    const status = req.params.status;
+    const requestId = req.params.requestId;
+    const loggedInUser = req.user;
+
+    try {
+      const allowedStatus = ["accepted", "rejected"];
+
+      if (!allowedStatus.includes(status)) {
+        return res.status(400).send({
+          message: "Invalid status type:" + status,
+        });
+      }
+
+      // const request = await ConnectionRequestModel.findById(requestId);
+      // console.log(request, ":request");
+      // if (!request) {
+      //   return res.status(404).send({
+      //     message: "Connection request not found",
+      //   });
+      // }
+
+      // if (
+      //   request.recieverId !== req.user._id ||
+      //   request.status !== "interested"
+      // ) {
+      //   return res.status(404).send("Invalid request");
+      // }
+
+      //OR
+
+      const connectionRequest = await ConnectionRequestModel.findOne({
+        _id: requestId,
+        recieverId: loggedInUser._id,
+        status: "interested",
+      });
+
+      if (!connectionRequest) {
+        return res.status(404).send({
+          message: "Connection request not found",
+        });
+      }
+
+      connectionRequest.status = "accepted";
+      const data = await connectionRequest.save();
+      // const data = await ConnectionRequestModel.findByIdAndUpdate(requestId,);
+
+      res.json({
+        message: "Connection request: " + status,
+        data,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(400).send("Something went wrong: " + err.message);
+    }
+  }
+);
 module.exports = requestRouter;

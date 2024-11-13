@@ -5,7 +5,7 @@ const app = express();
 const authRouter = require("./routes/authRouter");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/requests");
-
+const userRoute = require("./routes/userRoutes");
 // Use JSON middleware before routes - allow apis to accept json data without this it will be
 app.use(express.json());
 app.use(cookieParser());
@@ -13,7 +13,8 @@ app.use(cookieParser());
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
-                                                                                                                                                                                                                            
+app.use("/", userRoute);
+
 connectDB()
   .then(() => {
     app.listen(7777, () => {
@@ -23,11 +24,6 @@ connectDB()
   .catch((err) => {
     console.log(err);
   });
-
-
-
-
-  
 
 // app.get("/feed", async (req, res) => {
 //   try {
